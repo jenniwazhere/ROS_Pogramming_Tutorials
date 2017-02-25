@@ -13,15 +13,19 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "robot_cleaner");
 	ros::NodeHandle n;
 	
-	double speed, distance;
+	double speed;
+	double distance;
 	bool isForward;
 
-	velocity_publisher = n.advertise<geometry_msgs::Twist>("/turtle/cmd_vel",10);
+	velocity_publisher = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel",10);
 	//to test the move function
 	//ask the user for input
-	cout << "Speed: "; cin >> speed;
-	cout << "Distance: "; cin >> distance;
-	cout << "Forward? "; cin >> isForward;
+	cout << "Speed: "; 
+	cin >> speed;
+	cout << "Distance: "; 
+	cin >> distance;
+	cout << "Forward? "; 
+	cin >> isForward;
 
 	move(speed, distance, isForward);
 
@@ -31,15 +35,11 @@ int main(int argc, char **argv)
 void move(double speed, double distance, bool isForward){
 	geometry_msgs::Twist vel_msg;
 
-
-
 	//move in the linear direction
-	if (isForward){
+	if (isForward)
 		vel_msg.linear.x = abs(speed);
-	}
 	else
 		vel_msg.linear.x = -abs(speed);
-	vel_msg.linear.x = 0;
 	vel_msg.linear.y = 0;
 	vel_msg.linear.z = 0;
 
@@ -48,8 +48,6 @@ void move(double speed, double distance, bool isForward){
 	vel_msg.linear.y = 0;
 	vel_msg.linear.z = 0;
 
-	//t0 = current time
-	//loop 
 	double t0 = ros::Time::now().toSec();
 	double current_distance = 0;
 	ros::Rate loop_rate(10);
