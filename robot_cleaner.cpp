@@ -2,6 +2,8 @@
 #include "geometry_msgs/Twist.h"
 ros::Publisher velocity_publisher;
 
+using namespace std;
+
 //method to move the robot straight
 void move(double speed, double distance, bool isForward);
 
@@ -11,8 +13,18 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "robot_cleaner");
 	ros::NodeHandle n;
 
+	double speed, distance;
+	bool isForward;
+
 	velocity_publisher = n.adertise<geometry_msgs::Twist>("/turtle/cmd_vel",10);
-	move (2.0,5.0,1);
+
+	//to test the move function
+	//ask the user for input
+	cout << "Speed: "; cin >> speed;
+	cout << "Distance: "; cin >> distance;
+	cout << "Forward? "; cin >> isForward
+
+	move (speed, distance, isForward);
 
 }
 
