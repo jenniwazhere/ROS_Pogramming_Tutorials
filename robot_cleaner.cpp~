@@ -12,18 +12,19 @@ int main(int argc, char **argv)
 	//initiate new ROS node named "talker"
 	ros::init(argc, argv, "robot_cleaner");
 	ros::NodeHandle n;
-	
+
 	double speed, distance;
 	bool isForward;
 
-	velocity_publisher = n.advertise<geometry_msgs::Twist>("/turtle/cmd_vel",10);
+	velocity_publisher = n.adertise<geometry_msgs::Twist>("/turtle/cmd_vel",10);
+
 	//to test the move function
 	//ask the user for input
 	cout << "Speed: "; cin >> speed;
 	cout << "Distance: "; cin >> distance;
-	cout << "Forward? "; cin >> isForward;
+	cout << "Forward? "; cin >> isForward
 
-	move(speed, distance, isForward);
+	move (speed, distance, isForward);
 
 }
 
@@ -38,7 +39,7 @@ void move(double speed, double distance, bool isForward){
 		vel_msg.linear.x = abs(speed);
 	}
 	else
-		vel_msg.linear.x = -abs(speed);
+		vel_msg.linear.x = - abs(speed);
 	vel_msg.linear.x = 0;
 	vel_msg.linear.y = 0;
 	vel_msg.linear.z = 0;
@@ -50,12 +51,12 @@ void move(double speed, double distance, bool isForward){
 
 	//t0 = current time
 	//loop 
-	double t0 = ros::Time::now().toSec();
+	double t0 = ros:Time::now().toSec();
 	double current_distance = 0;
 	ros::Rate loop_rate(10);
 	do {
 		velocity_publisher.publish(vel_msg);
-		double t1=ros::Time::now().toSec();
+		doubtl t1=ros:Time::now().toSec();
 		current_distance = speed * (t1-t0);
 		ros::spinOnce(); //need in order to publish
 		loop_rate.sleep();
